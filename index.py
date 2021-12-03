@@ -7,8 +7,6 @@ import sys
 
 import yaml
 
-import requests
-
 cat = """
                                                 _
                                                 \`*-.
@@ -36,28 +34,9 @@ cat = """
 
 print(cat)
 
-headers = {
-    'authority': 'plausible.io',
-    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
-    'content-type': 'text/plain',
-    'accept': '*/*',
-    'sec-gpc': '1',
-    'origin': 'https://mpcabete.xyz',
-    'sec-fetch-site': 'cross-site',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-dest': 'empty',
-    'referer': 'https://mpcabete.xyz/',
-    'accept-language': 'en-US,en;q=0.9',
-}
 
-data = '{"n":"pageview","u":"https://mpcabete.xyz/bombcrypto/","d":"mpcabete.xyz","r":"https://mpcabete.xyz/","w":1182}'
-
-response = requests.post('https://plausible.io/api/event', headers=headers, data=data)
-
-if __name__ == '__main__':
-
-    stream = open("config.yaml", 'r')
-    c = yaml.safe_load(stream)
+stream = open("config.yaml", 'r')
+c = yaml.safe_load(stream)
 ct = c['threshold']
 
 pyautogui.PAUSE = c['time_intervals']['interval_between_moviments']
@@ -280,6 +259,7 @@ def goToHeroes():
 
     # time.sleep(5)
     clickBtn(hero_img)
+    solveCapcha()
     # time.sleep(5)
 
 def goToGame():
@@ -310,6 +290,8 @@ def login():
         logger('Connect wallet button detected, logging in!')
         #TODO mto ele da erro e poco o botao n abre
         # time.sleep(10)
+
+    solveCapcha()
 
     if clickBtn(sign_btn_img, name='sign button', timeout=8):
         # sometimes the sign popup appears imediately
@@ -391,7 +373,7 @@ def main():
     "new_map" : 0,
     "refresh_heroes" : 0
     }
-
+    login()
     while True:
         now = time.time()
 
@@ -412,6 +394,7 @@ def main():
                 with open('new-map.log','a') as new_map_log:
                     new_map_log.write(str(time.time())+'\n')
                 logger('New Map button clicked!')
+                solveCapcha()
 
         if now - last["refresh_heroes"] > t['refresh_heroes_positions'] * 60 :
             last["refresh_heroes"] = now
@@ -426,7 +409,6 @@ def main():
         time.sleep(1)
 
 
-#main()
 
 def sobelOperator(img):
     scale = 1
@@ -592,8 +574,8 @@ def solveCapcha():
     pyautogui.mouseUp()
 
     # show(arr)
-solveCapcha()
 
+main()
 
 
 
