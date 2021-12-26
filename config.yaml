@@ -17,7 +17,7 @@
     #
     # [pt_BR] Intervalo de tempo para atualizar a posição dos heróis no mapa
     # Valor padrão (em minutos): 3
-    refresh_heroes_positions: 3
+    refresh_heroes_positions: 5
     
     # [en_US] Time interval to check for new maps
     # Default value (in minutes): 3 

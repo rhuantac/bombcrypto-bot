@@ -35,7 +35,7 @@ cat = """
 print(cat)
 
 
-stream = open("config.yaml", 'r')
+stream = open("config.yaml", 'r', encoding="utf-8")
 c = yaml.safe_load(stream)
 ct = c['threshold']
 
@@ -259,7 +259,6 @@ def goToHeroes():
 
     # time.sleep(5)
     clickBtn(hero_img)
-    solveCapcha()
     # time.sleep(5)
 
 def goToGame():
@@ -291,7 +290,6 @@ def login():
         #TODO mto ele da erro e poco o botao n abre
         # time.sleep(10)
 
-    solveCapcha()
 
     if clickBtn(sign_btn_img, name='sign button', timeout=8):
         # sometimes the sign popup appears imediately
@@ -394,7 +392,6 @@ def main():
                 with open('new-map.log','a') as new_map_log:
                     new_map_log.write(str(time.time())+'\n')
                 logger('New Map button clicked!')
-                solveCapcha()
 
         if now - last["refresh_heroes"] > t['refresh_heroes_positions'] * 60 :
             last["refresh_heroes"] = now
